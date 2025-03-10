@@ -23,8 +23,6 @@ TASK_DEFINITIONS = {
 class TaskManager:
     def __init__(self):
         self.tasks = {
-            "6.a": (self.task_6_a, 1, str), 
-            "18": (self.task_18, 1, str),
             "det_of_matrix": (self.task_determinant_of_matrix, 1, float),
             "10": (self.task_10, 1, str)
         }
@@ -108,43 +106,6 @@ x₁ - x₂ + 6x₃ = 3;""",
     def calc_determinant_of_matrix(self, matrix):
         return np.linalg.det(matrix)
 
-    def task_6_a(self, variables):
-        text = variables[0] if variables else "Hello world! How are you!"
-        
-        # Знаходимо індекс першого знаку оклику
-        exclamation_index = text.find('!')
-        if exclamation_index == -1:
-            return "No exclamation mark found in the string", f"Input: {text}", 0
-        
-        # Підраховуємо кількість пробілів до першого знаку оклику
-        spaces_count = text[:exclamation_index].count(' ')
-        
-        return "Count spaces before first exclamation mark", f"Input: {text}", spaces_count
-
-    
-    def text_split(self, text):
-        return [word for word in text.split() if word]
-
-    def task_18(self, variables):
-        text = variables[0] if variables else "Hello world level deed stats"
-        
-        # Отримуємо список слів через допоміжну функцію
-        words = self.text_split(text)
-        
-        # Знаходимо слова, де перший і останній символи співпадають
-        matching_words = [word for word in words if word and word[0].lower() == word[-1].lower()]
-        
-        # Формуємо результат
-        result = {
-            "total_words": len(words),
-            "matching_words": matching_words,
-            "matching_count": len(matching_words)
-        }
-        
-        return ("Count words where first and last characters match", 
-                f"Input: {text}", 
-                f"Matching words: {matching_words}\nCount: {len(matching_words)}")
-    
     def task_10(self, variables):
         # Get the system of equations from input or use default
         equations_text = variables[0] if variables else self.linear_system_examples["Example 1 (4 variables)"]
