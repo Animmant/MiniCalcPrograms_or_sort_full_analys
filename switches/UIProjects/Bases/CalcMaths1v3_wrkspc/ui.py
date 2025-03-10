@@ -19,14 +19,6 @@ class UIManager:
             on_submit=self.add_variable
         )
 
-        # Dropdown for examples
-        self.examples_dropdown = ft.Dropdown(
-            width=300,
-            label="Select an example",
-            on_change=self.select_example,
-            visible=False
-        )
-
         self.txt_variables = ft.TextField(
             value="Entered values: []",
             read_only=True,
@@ -52,13 +44,7 @@ class UIManager:
         self.btn_clear = ft.ElevatedButton(text="Clear", on_click=self.clear_inputs)
 
         # Додавання компонентів на сторінку
-        self.page.add(
-            ft.Row([self.txt_input, self.examples_dropdown]),
-            self.txt_variables, 
-            self.txt_result, 
-            self.grid, 
-            self.btn_clear
-        )
+        self.page.add(self.txt_input, self.txt_variables, self.txt_result, self.grid, self.btn_clear)
         self.page.update()
 
     def create_task_buttons(self):
@@ -91,54 +77,6 @@ class UIManager:
         self.variable_inputs.clear()
         self.txt_variables.value = "Entered values: []"
         self.txt_result.value = "Waiting for inputs..."
-        
-        # Check if this task has predefined examples
-        examples = self.task_manager.get_examples_for_task(self.current_task)
-        if examples:
-            # Update dropdown with examples
-            self.examples_dropdown.options = [
-                ft.dropdown.Option(key=key, text=key) for key in examples.keys()
-            ]
-            self.examples_dropdown.visible = True
-        else:
-            self.examples_dropdown.options = []
-            self.examples_dropdown.visible = False
-        
-        self.update_ui()
-
-    def select_example(self, e):
-        """Handle example selection from dropdown"""
-        if not self.examples_dropdown.value or not self.current_task:
-            return
-            
-        examples = self.task_manager.get_examples_for_task(self.current_task)
-        if not examples:
-            return
-            
-        selected_example = examples.get(self.examples_dropdown.value)
-        if not selected_example:
-            return
-            
-        # For system of linear equations, the example is a string
-        if self.current_task == "10":
-            self.variable_inputs = [selected_example]
-            self.txt_variables.value = f"Selected example: {self.examples_dropdown.value}"
-            
-            # Execute the task with the selected example
-            result = self.task_manager.execute_task(self.current_task, self.variable_inputs)
-            self.txt_result.value = result
-        
-        # For matrix determinant, the example is a numpy array
-        elif self.current_task == "det_of_matrix":
-            # Convert matrix to string representation for display
-            matrix_str = str(selected_example)
-            self.variable_inputs = [matrix_str]
-            self.txt_variables.value = f"Selected example: {self.examples_dropdown.value}"
-            
-            # Execute the task with the selected example
-            result = self.task_manager.execute_task(self.current_task, self.variable_inputs)
-            self.txt_result.value = result
-            
         self.update_ui()
 
     def add_variable(self, e):
@@ -170,7 +108,6 @@ class UIManager:
         self.txt_variables.value = "Entered values: []"
         self.txt_result.value = ""
         self.txt_input.value = ""
-        self.examples_dropdown.value = None
         self.update_ui()
 
     def update_ui(self):
@@ -179,4 +116,3 @@ class UIManager:
         self.txt_input.update()
         self.txt_variables.update()
         self.grid.update()
-        self.examples_dropdown.update()
