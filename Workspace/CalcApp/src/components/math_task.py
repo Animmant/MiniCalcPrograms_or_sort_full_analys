@@ -1,38 +1,15 @@
 import math
 
-def calculate_expression(x: float, y: float) -> float:
-   
-    # Обчислюємо sin²(x + y)
-    sin_squared = math.pow(math.sin(x + y), 2)
+def calculate_finite_differences(x_values, y_values):
+    """
+    Обчислює скінченні різниці для інтерполяційного многочлена Ньютона.
+    """
+    n = len(y_values)
+    h = x_values[1] - x_values[0]  # Крок (за умови рівномірної сітки)
     
-    # Обчислюємо x²*y²
-    x_squared_y_squared = math.pow(x, 2) * math.pow(y, 2)
+    # Обчислення скінченних різниць
+    delta_y = [y_values[i+1] - y_values[i] for i in range(n-1)]
+    delta2_y = [delta_y[i+1] - delta_y[i] for i in range(len(delta_y)-1)]
+    delta3_y = [delta2_y[i+1] - delta2_y[i] for i in range(len(delta2_y)-1)]
     
-    # Обчислюємо (x - 2*x), це дорівнює -x
-    x_minus_2x = x - 2 * x
-    
-    # Обчислюємо знаменник дробу (x - 2*x) / (1 + x²*y²)
-    denominator = 1 + x_squared_y_squared
-    
-    # Перевіряємо, чи знаменник не дорівнює нулю
-    if denominator == 0:
-        raise ValueError("Знаменник виразу дорівнює нулю, ділення неможливе")
-    
-    # Обчислюємо дріб (x - 2*x) / (1 + x²*y²)
-    fraction = x_minus_2x / denominator
-    
-    # Обчислюємо абсолютне значення дробу
-    abs_fraction = abs(fraction)
-    
-    # Обчислюємо знаменник основного виразу
-    main_denominator = 2 + abs_fraction
-    
-    # Перевіряємо, чи знаменник основного виразу не дорівнює нулю
-    if main_denominator == 0:
-        raise ValueError("Знаменник основного виразу дорівнює нулю, ділення неможливе")
-    
-    # Обчислюємо основний дріб
-    main_fraction = (1 + sin_squared) / main_denominator
-    
-    # Повертаємо кінцевий результат
-    return main_fraction + x
+    return delta_y, delta2_y, delta3_y
