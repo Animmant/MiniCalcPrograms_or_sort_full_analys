@@ -1,6 +1,6 @@
 import unittest
 import math
-from src.components.math_task import calculate_expression
+from src.components.math_task import math_task
 
 class TestMathTask(unittest.TestCase):
     
@@ -61,3 +61,12 @@ class TestMathTask(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main() 
+
+
+    x_vals = [1.0, 1.1, 1.2, 1.3]
+    y_vals = [0.8415, 0.8912, 0.9320, 0.9636]  # приблизно sin(x)
+    point = 1.15
+
+    d1, d2 = newton_derivatives(x_vals, y_vals, point)
+    print(f"Перша похідна в {point}: {d1}")
+    print(f"Друга похідна в {point}: {d2}")
