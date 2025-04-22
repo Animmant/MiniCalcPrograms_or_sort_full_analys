@@ -5,7 +5,7 @@ def main():
     print("(1 + sin²(x + y)) / (2 + abs((x - 2*x) / (1 + x²*y²))) + x")
     
     try:
-        x = float(input("Введіть значення x: "))
+        x = float(input("Введіть значення x: ."))
         y = float(input("Введіть значення y: "))
         
         result = calculate_expression(x, y)
