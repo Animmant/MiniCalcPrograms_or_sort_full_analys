@@ -7,15 +7,15 @@
 
 src/
 ├── main.py                  # Точка входу
-├── ui.py                    # Управління інтерфейсом
-├── tasks/
-│   ├── __init__.py
-│   ├── math_tasks.py         # Математичні задачі
-│   ├── text_tasks.py         # Текстові задачі
+├── ui.py                    # графічно вивисти
+├── components/
+│   ├── __init__.py 
+│   ├── method_int.py      include (method_int_kvad.py method_int_simpsone.py)   # Математичні задачі
+│   ├── method_int_test.py 
+│   ├── method_int_kvad_test.py 
+│   ├── method_int_simpsone_test.py 
 ├── README.md                # Загальний опис проєкту
 ├── utils/                # Допоміжні утиліти
-│   ├── validator.py      # Валідація вхідних даних
-│   └── error_handlers.py # Обробка помилок
+│   ├── hello.py      # 
 └── tests/
-    ├── test_math_tasks.py
-    └── test_text_tasks.py
+    ├── test_hello.py
